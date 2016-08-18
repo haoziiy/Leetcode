@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool isPowerOfFour(int num) {
+    bool isPowerOfFour(int num) {//方案一:循环
         while((num%4==0)&&(num!=0)){
             num = num/4;
         }
@@ -11,3 +11,43 @@ public:
         }
     }
 };
+
+class Solution {
+public:
+    bool isPowerOfFour(int num){//方案二:枚举
+        switch(num){
+            case 0x1:
+            case 0x4:
+            case 0x10:
+            case 0x40:
+            case 0x100:
+            case 0x400:
+            case 0x1000:
+            case 0x4000:
+            case 0x10000:
+            case 0x40000:
+            case 0x100000:
+            case 0x400000:
+            case 0x1000000:
+            case 0x4000000:
+            case 0x10000000:
+            case 0x40000000:
+                return true;
+            default:
+                return false;
+            
+        }
+    }
+};
+
+class Solution {
+public:
+    bool isPowerOfFour(int num){//方法三:二进制数相与
+        if(num<1) return false;
+        if(num&(num-1)) return false;//如果是2的N次方则num&(num-1)!=0
+        if(num& 0x55555555) return true;//是2的N次方基础上,是4的n次方
+        return false;
+        
+    }
+};
+
