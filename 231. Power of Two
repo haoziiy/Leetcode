@@ -1,0 +1,40 @@
+
+
+class Solution {//方法一：循环（请无视。。2的次方问题应该优先考虑位操作）
+public:
+    bool isPowerOfTwo(int n) {
+        while((n % 2==0)&&(n!=0)){
+            n = n/2;
+        }
+        if(n==1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+};
+
+class Solution {//方法二：位操作（2的次方数都只有一个1，剩下的都是0）
+public:
+    bool isPowerOfTwo(int n) {
+        int count = 0;
+        while(n > 0){
+            count += n & 1;
+            n >>= 1;//先将变量n的各个二进制位顺序右移1位，最高位补二进制0，然后将这个结果再复制给n。
+        }
+        return count == 1;
+    }
+};
+
+class Solution {//位操作
+public:
+    bool isPowerOfTwo(int n) {
+    /*
+    二进数必然是最高位为1，其它都为0，
+    那么如果此时我们减1的话，则最高位会降一位，
+    其余为0的位现在都为变为1，
+    那么我们把两数相与，就会得到0
+    */
+        return (n > 0) && (!(n & (n - 1)));//
+    }
+};
