@@ -15,7 +15,7 @@
 
 int guess(int num);
 
-class Solution {//折半搜索查找
+class Solution {//binary search（二分法检索）即折半搜索查找
 public:
     int guessNumber(int n) {
         if(guess(n) == 0) return n;
