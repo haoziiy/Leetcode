@@ -30,3 +30,29 @@
             return len;
         }
     }
+    
+    /**
+     * Created by sherry on 17/3/3.
+     * 另建一个数组（增加空间复杂度。。）
+     */
+    public class Solution {
+        public int removeElement(int[] nums, int val) {
+
+            int j = 0;
+            for(int i = 0; i < nums.length; i++){
+
+                if(nums[i] != val){
+                    nums[j] = nums[i];
+                    j++;
+                }
+            }
+
+            int A[] = new int[j];
+            for (int i = 0;i<j;i++)
+            {
+                A[i] = nums[i];
+            }
+            nums = A;
+            return j;
+        }
+    }
