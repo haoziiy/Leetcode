@@ -1,0 +1,90 @@
+/**************************************************************************************
+* Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), 
+* prove that at least one duplicate number must exist. 
+* Assume that there is only one duplicate number, find the duplicate one.
+* 
+* Note:
+* You must not modify the array (assume the array is read only).
+* You must use only constant, O(1) extra space.
+* Your runtime complexity should be less than O(n2).
+* There is only one duplicate number in the array, but it could be repeated more than once.*
+* 
+* Credits:
+* Special thanks to @jianchao.li.fighter for adding this problem and creating all test cases.
+*
+* Subscribe to see which companies asked this question.
+**************************************************************************************/
+
+/**
+ * 暴力方法O(n方)
+ */
+  public class Solution {
+      public int findDuplicate(int[] nums) {
+          for (int i = 0 ;i<nums.length;i++)
+          {
+              for (int j = i+1;j<nums.length;j++)
+              {
+                  if (nums[i] == nums[j])
+                  {
+                      return nums[i];
+                  }
+              }
+          }
+          return 0;
+      }
+  }
+  
+  /**
+   * 看到一个很聪明的办法，O(n).
+   *
+   * 假设数组中没有重复，那我们可以做到这么一点，就是将数组的下标和1到n每一个数一对一的映射起来。
+   * 假设这个一对一映射关系是一个函数f(n)，其中n是下标，f(n)是映射到的数。
+   * 如果我们从下标为0出发，根据这个函数计算出一个值，以这个值为新的下标，再用这个函数计算，以此类推，直到下标超界。
+   * 实际上可以产生一个类似链表一样的序列。
+   * 如果有重复的话，这中间就会产生多对一的映射，比如数组2131,则映射关系为0->2, {1，3}->1, 2->3。
+   * 这样，我们推演的序列就一定会有环路了，这里下标的序列是0->2->3->1->1->1->1->...，而环的起点就是重复的数。
+   */
+  @LuckyPants said in [Share my solution O\(N\) time O\(1\) space\. 12 ms](/post/133351):
+> So impressive solution. Share my explanation as below
+> 
+> ![0_1474620685029_Screen Shot 2016-09-23 at 4.50.28 PM.png](/uploads/files/1474620687667-screen-shot-2016-09-23-at-4.50.28-pm.png) 
+> 
+> `k` is the length before entering circle, 
+> `c` is the length of circle
+> `A` is the point to enter circle
+> 
+> When fast and slow meets, let the distance moved by slow be `X`
+> Then `X = 2X-X = n*c` where `n` is an integer and `n*c>=k`
+> 
+> So the meeting point of fast and slow has a offset `(n*c-k)%c` to point A
+> 
+> To let slow reach point A we need slow to go another `k` points, so that `(n*c-k+k)%c=0`
+> 
+> When finder goes from start point to A, the distance is `k`, slow goes the same distance, and we get the entrance of the circle. 
+> 
+> The entrance of circle has more than one in-pointers, this means at least two numbers at different indices in the array have same value, the index of slow and finder is the duplicate number.
+  /**
+   * 代码如下
+   *
+   */
+   public class Solution {
+    public int findDuplicate(int[] nums) {
+        int slow = 0;
+        int fast = 0;
+        int finder = 0;
+
+        while (true){
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+            if (slow == fast)
+                break;
+        }
+        while (true)
+        {
+            finder = nums[finder];
+            slow = nums[slow];
+            if (slow == finder)
+                return slow;
+        }
+    }
+}
