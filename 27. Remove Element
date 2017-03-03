@@ -12,7 +12,10 @@
      * Your function should return length = 2, with the first two elements of nums being 2.
      */
      
-     //法一
+    /**
+     * Created by sherry on 17/3/3.
+     * 两个指针，一个指向值为val的数，一个指向数组最后一个，用当前数组最后一个数移动去填充删去数的位置。
+     */
     public class Solution {
          public int removeElement(int[] nums, int val) {
             int len = nums.length;
