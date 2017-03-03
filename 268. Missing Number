@@ -6,7 +6,8 @@
  * Given nums = [0, 1, 3] return 2.
  *
  * Note:
- * Your algorithm should run in linear runtime complexity. Could you implement it using only constant extra space complexity?
+ * Your algorithm should run in linear runtime complexity.
+ * Could you implement it using only constant extra space complexity?
  * 
  * Credits:
  * Special thanks to @jianchao.li.fighter for adding this problem and creating all test cases.
@@ -15,6 +16,9 @@
  *
  *************************************************************************************/
  
+/**
+ * 方案一：分类讨论
+ */
   public class Solution {
      public int missingNumber(int[] nums) {
           int ArraySum = 0;
@@ -23,39 +27,39 @@
          int len = nums.length;//数组长度
 
          int n = nums[nums.length-1];
-
          for (int i = 0;i < nums.length;i++ )
          {
              if (top < nums[i])
-             {
-                 top = nums[i];
-             }
+                top = nums[i];
              ArraySum += nums[i];
          }
          //top现存数组中最大数
          for (int i = 1;i <= top;i++)
-         {
              sum += i;
-         }
          int result = sum - ArraySum;
          if (top == 0)
-         {
              return 1;
-         }
-
          //数组从0或1连续
          if(result == 0)
          {
              if(len == top+1)
-             {
                  return top +1;
-             }
              else
                  return 0;
          }
-         else {
-
+         else 
              return result;
-         }
      }
  }
+
+/**
+ * 方案二：优化
+ */
+  public class Solution {
+     public int missingNumber(int[] nums) {
+         int sum = 0;
+         for(int i = 0;i < nums.length;i++)
+             sum += nums[i];
+         return (nums.length * (nums.length + 1) )/ 2 - sum;
+     }
+}
