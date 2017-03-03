@@ -1,0 +1,21 @@
+/**************************************************************************************
+ * Given an array of integers, find if the array contains any duplicates. 
+ * Your function should return true if any value appears at least twice in the array,
+ * and it should return false if every element is distinct.
+ *
+ * Subscribe to see which companies asked this question.
+**************************************************************************************/
+/**
+ * 使用set的特性：Set是一个不包含重复元素的 collection。
+ * 更确切地讲，set 不包含满足 e1.equals(e2) 的元素对 e1 和 e2，并且最多包含一个 null 元素。
+ */
+public class Solution {
+    public boolean containsDuplicate(int[] nums) {
+    
+        Set  set=new HashSet();
+        for(int i : nums)
+			 if(!set.add(i))// if there is same
+				 return true; 
+        return false;
+    }
+}
