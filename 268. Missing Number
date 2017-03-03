@@ -15,47 +15,47 @@
  *
  *************************************************************************************/
  
- public class Solution {
-    public int missingNumber(int[] nums) {
-         int ArraySum = 0;
-        int sum = 0;
-        int top = 0;
-        int len = nums.length;//数组长度
+  public class Solution {
+     public int missingNumber(int[] nums) {
+          int ArraySum = 0;
+         int sum = 0;
+         int top = 0;
+         int len = nums.length;//数组长度
 
-        int n = nums[nums.length-1];
-    
-        for (int i = 0;i < nums.length;i++ )
-        {
-            if (top < nums[i])
-            {
-                top = nums[i];
-            }
-            ArraySum += nums[i];
-        }
-        //top现存数组中最大数
-        for (int i = 1;i <= top;i++)
-        {
-            sum += i;
-        }
-        int result = sum - ArraySum;
-        if (top == 0)
-        {
-            return 1;
-        }
+         int n = nums[nums.length-1];
 
-        //数组从0或1连续
-        if(result == 0)
-        {
-            if(len == top+1)
-            {
-                return top +1;
-            }
-            else
-                return 0;
-        }
-        else {
+         for (int i = 0;i < nums.length;i++ )
+         {
+             if (top < nums[i])
+             {
+                 top = nums[i];
+             }
+             ArraySum += nums[i];
+         }
+         //top现存数组中最大数
+         for (int i = 1;i <= top;i++)
+         {
+             sum += i;
+         }
+         int result = sum - ArraySum;
+         if (top == 0)
+         {
+             return 1;
+         }
 
-            return result;
-        }
-    }
-}
+         //数组从0或1连续
+         if(result == 0)
+         {
+             if(len == top+1)
+             {
+                 return top +1;
+             }
+             else
+                 return 0;
+         }
+         else {
+
+             return result;
+         }
+     }
+ }
