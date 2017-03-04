@@ -7,9 +7,9 @@
  * Subscribe to see which companies asked this question.
 **************************************************************************************/
 
-        /**
-         * key:保持k大小的set
-         */
+/**
+ * key:保持k大小的set
+ */
 public class Solution {
     public boolean containsNearbyDuplicate(int[] nums, int k) {
         Set<Integer> set = new HashSet<Integer>();
