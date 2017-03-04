@@ -1,0 +1,58 @@
+/**************************************************************************************
+ * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+ *
+ * Determine whether an integer is a palindrome. Do this without extra space.
+ *
+ * Some hints:
+ * Could negative integers be palindromes? (ie, -1)
+ *
+ * If you are thinking of converting the integer to string, note the restriction of using extra space. 
+ *
+ * You could also try reversing an integer. However, if you have solved the problem "Reverse Integer", you know that the reversed integer might overflow. How would you handle such case? 
+ *
+ * There is a more generic way of solving this problem. 
+ *
+ * Subscribe to see which companies asked this question.
+ **************************************************************************************/
+ 
+ /**
+  * 未优化方案
+  */
+ public class Solution {
+    public boolean isPalindrome(int x) {
+        Integer n = x;
+        if(n < 0)
+            return false;
+        int rev = 0;
+        while (n != 0)
+        {
+            rev = rev*10 + n%10;
+            n = n/10;
+        }
+        if(rev == x)
+            return true;
+        else
+            return false;
+    }
+}
+
+ /**
+  * 优化方案
+  */
+ public class Solution {
+    public boolean isPalindrome(int x) {
+
+        if(x < 0 || x!=0 && x%10 ==0)
+            return false;
+        int rev = 0;
+        while (rev < x)
+        {
+            rev = rev*10 + x%10;
+            x = x/10;
+        }
+        if(rev == x || rev/10 == x)
+            return true;
+        else
+            return false;
+    }
+}
