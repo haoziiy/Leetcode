@@ -11,7 +11,9 @@
  *
  * Subscribe to see which companies asked this question.
  **************************************************************************************/
-
+/**
+ * 方法一
+ */
   public class Solution {
       public int lengthOfLastWord(String s) {
 
@@ -26,5 +28,14 @@
           String newStr = s.substring(n+1,s.length());
 
           return newStr.length();
+      }
+  }
+
+/**
+ * 一行代码答案
+ */
+  public class Solution {
+      public int lengthOfLastWord(String s) {
+      return s.trim().length()-s.trim().lastIndexOf(" ")-1;
       }
   }
