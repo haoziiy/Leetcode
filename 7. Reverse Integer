@@ -25,7 +25,7 @@
  
  
 /**
- * Java
+ * Java(不使用long类型)
  */
  public class Solution {
     public int reverse(int x) {
@@ -55,9 +55,25 @@
         return m;
     }
 }
-
+ 
 /**
- * C++
+ * Java(使用long类型)
+ */
+public class Solution {
+    public int reverse(int x) {
+        long m = 0;
+        while(x != 0) {
+            m = m*10 + x%10;
+            x /= 10;
+        }
+        if(m< -2147483648 || m>2147483647)
+            return 0;
+
+        return (int)m;
+    }
+}
+/**
+ * C++(使用long long类型)
  */
 class Solution {
 public:
