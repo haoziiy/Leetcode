@@ -12,3 +12,52 @@
  * ]
  * Subscribe to see which companies asked this question.
 **************************************************************************************/
+/**
+ * 思路：
+ * 升序排列，每次固定最小的那个数，在后面的数组中找出另外两个数之和为该数的相反数
+ */
+public class Solution {
+    
+    public List<List<Integer>> threeSum(int[] nums) {
+       
+        List<List<Integer>> result = new ArrayList<List<Integer>>(){};
+        if(nums.length < 3) return result;
+        Arrays.sort(nums);
+        int length = nums.length;
+        System.out.println(Arrays.toString(nums));
+        int begin = 0;
+        int end = 0;
+        int target = 0;
+
+        for (int i = 0;i < nums.length - 2;i++)
+        {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            begin = i+1;
+            end = length - 1;
+            target = nums[i];
+
+            while (begin < end) {
+                if (nums[begin] + nums[end] + target == 0) {
+                    List<Integer> list = new ArrayList<Integer>();
+                    list.add(target);
+                    list.add(nums[begin]);
+                    list.add(nums[end]);
+                    result.add(list);
+                    while (begin < end && nums[begin + 1] == nums[begin])
+                        begin++;
+                    begin++;
+                    while (begin < end && nums[end - 1] == nums[end])
+                        end--;
+                    end--;
+                } else if (nums[begin] + nums[end] + target > 0)
+                    end--;
+                else
+                    begin++;
+            }
+
+        }
+        return result;
+    }
+    
+}
