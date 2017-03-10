@@ -1,0 +1,40 @@
+/**************************************************************************************
+* Given two binary strings, return their sum (also a binary string).
+*
+* For example,
+* a = "11"
+* b = "1"
+* Return "100".
+*
+* Subscribe to see which companies asked this question.
+**************************************************************************************/
+
+public class Solution {
+    public String addBinary(String a, String b) {
+         
+        
+        StringBuilder stringBuilder = new StringBuilder();
+        int carry = 0;
+        int aindex = a.length() - 1;
+        int bindex = b.length() - 1;
+        int sum = 0;
+        while (aindex >= 0 || bindex >= 0) {
+            sum = carry;
+            if (aindex >= 0)
+            {
+                sum += a.charAt(aindex) - '0';
+                aindex--;
+            }
+            if (bindex >= 0) {
+                sum += b.charAt(bindex) - '0';
+                bindex--;
+            }
+            stringBuilder.append(sum%2);
+            carry = sum/2;
+        }
+        if (carry != 0)
+            stringBuilder.append(carry);
+
+         return stringBuilder.reverse().toString();
+    }
+}
