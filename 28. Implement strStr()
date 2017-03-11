@@ -1,0 +1,31 @@
+/**************************************************************************************
+ * Implement strStr(). 
+ * 
+ * Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+ * 
+ * Subscribe to see which companies asked this question.
+ **************************************************************************************/
+ 
+ public class Solution {
+    public int strStr(String haystack, String needle) {
+        int j = 0;
+        int moved = 0;
+        if (needle.length() == 0)
+            return 0;
+        for (int i = 0;i < haystack.length() - needle.length() + 1;i++)
+        {
+          while ( j < needle.length() && haystack.charAt(i) == needle.charAt(j))
+          {
+              i++;
+              j++;
+              moved++ ;
+          }
+          if (j == needle.length() && moved != 0) {
+              return i - j;
+          }
+          i = i - j;
+          j=0;
+        }
+        return -1;
+    }
+}
