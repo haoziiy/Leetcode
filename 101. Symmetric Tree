@@ -48,3 +48,47 @@ public class Solution {
     }
 }
 
+/**
+ * 非递归方法
+ * 堆——遍历
+ */
+public class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        
+         if (root == null) return true;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode left, right;
+        
+        if(root.left!=null){//根节点有左子树
+            if(root.right==null) return false;
+            stack.push(root.left);
+            stack.push(root.right);
+        }
+        else if(root.right!=null)//根节点无左子树时
+            return false;
+        while(!stack.empty()){//对称节点比对
+            if(stack.size()%2!=0)   return false;
+            right = stack.pop();
+            left = stack.pop();
+            
+            if(right.val!=left.val) return false;
+
+            if(left.left!=null){
+                if(right.right==null)   return false;
+                stack.push(left.left);
+                stack.push(right.right);
+            }
+            
+            else if(right.right!=null) return false;
+            
+            if(left.right!=null){
+                if(right.left==null)   return false;
+                stack.push(left.right);
+                stack.push(right.left);
+            }
+            else if(right.left!=null) return false;
+        }
+        return true;
+    }
+    
+}
