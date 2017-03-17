@@ -1,0 +1,36 @@
+/**************************************************************************************
+* Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+*
+* (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+* 
+* Find the minimum element.
+* 
+* You may assume no duplicate exists in the array.
+* 
+* Subscribe to see which companies asked this question.
+**************************************************************************************/
+
+public class Solution {
+    public int findMin(int[] nums) {
+    
+        int min = 0;
+        int max = nums.length - 1;
+        int mid = (min + max)/2;
+        if (max == 0) return nums[0];
+        while (min < max){
+            if (nums[min] < nums[max]) return nums[min];
+
+            else if (nums[mid] > nums[min] && nums[mid] > nums[max]){//中间比左点大 && 中间比右点大
+                min = mid;
+                mid = (min + max)/2;
+            }
+            else if (nums[mid] < nums[min] && nums[mid] < nums[max]){//中间比左点小 && 中间比右点小
+
+                max = mid;
+                mid = (min + max)/2;
+            }
+            else return nums[mid + 1];
+        }
+        return nums[mid];
+    }
+}
