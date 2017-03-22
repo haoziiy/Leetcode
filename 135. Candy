@@ -1,0 +1,39 @@
+/**************************************************************************************
+ * There are N children standing in a line. Each child is assigned a rating value.
+ *
+ * You are giving candies to these children subjected to the following requirements:
+ * 
+ * Each child must have at least one candy.
+ * Children with a higher rating get more candies than their neighbors.
+ * What is the minimum candies you must give?
+ * 
+ * Subscribe to see which companies asked this question.
+ **************************************************************************************/
+ 
+ public class Solution {
+    public int candy(int[] ratings) {
+        int len = ratings.length;
+        int[] nums = new int[len];
+        if (len <= 1) return len;
+        int min = ratings[0];
+
+        for (int i = 1;i < len;i++)
+        {
+            if (ratings[i] < min ) min = ratings[i];
+            if (ratings[i] > ratings[i - 1])
+                nums[i] = nums[i - 1] + 1;
+        }
+        for (int i = len - 1;i > 0;i--)
+        {
+            if (ratings[i - 1] > ratings[i])
+                nums[i - 1] = Integer.max(nums[i] + 1, nums[i - 1]);
+        }
+        int sum = 0;
+        for (int i = 0;i < len;i++)
+        {
+            nums[i] += 1;
+            sum += nums[i];
+        }
+        return sum;
+    }
+}
