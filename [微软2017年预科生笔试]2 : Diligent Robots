@@ -1,0 +1,77 @@
+题目2 : Diligent Robots
+时间限制:10000ms
+单点时限:1000ms
+内存限制:256MB
+描述
+There are N jobs to be finished. It takes a robot 1 hour to finish one job.
+
+At the beginning you have only one robot. Luckily a robot may build more robots identical to itself. It takes a robot Q hours to build another robot.  
+
+So what is the minimum number of hours to finish N jobs?
+
+Note two or more robots working on the same job or building the same robot won't accelerate the progress.
+
+输入
+The first line contains 2 integers, N and Q.  
+
+For 70% of the data, 1 <= N <= 1000000  
+
+For 100% of the data, 1 <= N <= 1000000000000, 1 <= Q <= 1000
+
+输出
+The minimum number of hours.
+
+样例输入
+10 1
+样例输出
+5
+
+
+import java.util.Scanner;
+
+import static java.lang.Math.abs;
+
+/**
+ * Created by sherry on 2017/4/8.
+ */
+public class queen {
+
+    public static class Pos{
+        int x;
+        int y;
+        Pos(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public static void main(String[] arg) {
+        int count = 0;
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+        if (n <= 1) System.out.println(count);
+        Pos pos[] = new Pos[n];
+        int x;
+        int y;
+        for (int i = 0;i < n;i++){
+            x = input.nextInt();
+            y = input.nextInt();
+            pos[i] = new Pos(x,y);
+        }
+        for(int i = 0 ; i < n ; i++)
+        {
+            for(int j = i + 1 ; j < n ; j++)
+            {
+                if((abs(pos[j].x-pos[i].x)) == 0 || abs(pos[j].y-pos[i].y) == 0) //如果两个皇后在一条斜线上，则此种排列不符合条件，直接返回
+                {
+                    count++;
+                }
+                if((abs(pos[j].x-pos[i].x)) == abs(pos[j].y-pos[i].y)) //如果两个皇后在一条斜线上，则此种排列不符合条件，直接返回
+                {
+                    count++;
+                }
+            }
+        }
+        System.out.println(count);
+    }
+}
