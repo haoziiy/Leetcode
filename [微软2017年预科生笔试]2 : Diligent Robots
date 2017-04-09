@@ -29,49 +29,31 @@ The minimum number of hours.
 
 import java.util.Scanner;
 
-import static java.lang.Math.abs;
-
 /**
  * Created by sherry on 2017/4/8.
  */
-public class queen {
+public class DiligentRobots {
 
-    public static class Pos{
-        int x;
-        int y;
-        Pos(int x, int y){
-            this.x = x;
-            this.y = y;
-        }
-    }
 
     public static void main(String[] arg) {
-        int count = 0;
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
-        if (n <= 1) System.out.println(count);
-        Pos pos[] = new Pos[n];
-        int x;
-        int y;
-        for (int i = 0;i < n;i++){
-            x = input.nextInt();
-            y = input.nextInt();
-            pos[i] = new Pos(x,y);
-        }
-        for(int i = 0 ; i < n ; i++)
+        int q = input.nextInt();
+        int bestTime = n;//
+        int Rnum = 1;
+        for (int i = 0;i < n;i++)//新造几个机器人
         {
-            for(int j = i + 1 ; j < n ; j++)
-            {
-                if((abs(pos[j].x-pos[i].x)) == 0 || abs(pos[j].y-pos[i].y) == 0) //如果两个皇后在一条斜线上，则此种排列不符合条件，直接返回
-                {
-                    count++;
-                }
-                if((abs(pos[j].x-pos[i].x)) == abs(pos[j].y-pos[i].y)) //如果两个皇后在一条斜线上，则此种排列不符合条件，直接返回
-                {
-                    count++;
-                }
+            int nowTime = Integer.MAX_VALUE;
+            Rnum += i;
+            if ( n % Rnum!=0)
+                nowTime = i * q + n /Rnum  + 1;
+            else
+                nowTime = i * q + n /Rnum;
+
+            if (nowTime < bestTime){
+                bestTime = nowTime;
             }
         }
-        System.out.println(count);
+        System.out.println(bestTime);
     }
 }
