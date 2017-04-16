@@ -32,66 +32,41 @@
 2 3
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class record {
-    public static void main(String[] args){
 
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        int a, b, expa = 0, expb = 0, expline = 0;
-        int[] tree = new int[n + 1];
-        int[] lineNum = new int[n + 1];
-        tree[1] = 1;
-        for(int i = 1; i <= n; i++){
-            a = in.nextInt();
-            b = in.nextInt();
-            if(tree[b] == 0){
-                tree[b] = a;
-                lineNum[b] = i;
-            }else{
-                expa = a;
-                expb = b;
-                expline = i;
-                if(b == 1){
-                    System.out.print(i);
-                    return;
+        while (in.hasNextInt()) {
+            int N = in.nextInt();
+
+            Map<Integer ,Integer> map=new HashMap<>();
+            boolean find=false;
+            for(int i=0;i<N;++i )
+            {
+                int x=in.nextInt();
+                int y=in.nextInt();
+
+                if(find)
+                    continue;
+                if(y==1)
+                {
+                    System.out.println(i+1);
+                    find=true;
                 }
-            }
-        }
-        List<Integer> res = new ArrayList<Integer>();
-        int k = 1;
-        for(; k <= n; k++){
-            if(!isOne(tree, k)){
-                break;
-            }
-        }
-        if(k > n)
-            res.add(expline);
-        tree[expb] = expa;
-        k = 1;
-        for(; k <= n; k++){
-            if(!isOne(tree, k)){
-                break;
-            }
-        }
-        if(k > n)
-            res.add(lineNum[expb]);
-        for(int i = res.size() - 1; i >= 0; i--){
-            System.out.print(res.get(i) + " ");
-        }
-    }
+                else {
+                    if (map.containsKey(y)) {
+                        System.out.println(map.get(y) + " " + (i + 1));
+                        find = true;
 
-    public static boolean isOne(int[] tree, int child){
-        int repeat = child;
-        while(child != tree[child]){
-            child = tree[child];
-            if(child == repeat)
-                return false;
-        }
+                    } else
+                        map.put(y, i + 1);
+                }
 
-        return child == 1;
+            }
+
+
+        }
     }
 }
