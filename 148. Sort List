@@ -1,0 +1,56 @@
+/**************************************************************************************
+ * Sort a linked list in O(n log n) time using constant space complexity.
+ * 
+ * Subscribe to see which companies asked this question.
+ **************************************************************************************/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode sortList(ListNode head) {
+         if(head == null){
+            return head;
+        }
+        if(head.next == null){
+            return head;
+        }
+
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode pre = head;
+
+        while (fast != null && fast.next != null){
+            pre = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        pre.next = null;//对半拆分完成(head-pre, slow-fast)
+
+        //二分分治
+        ListNode h1 = sortList(head);
+        ListNode h2 = sortList(slow);
+        //合并
+        return merge(h1, h2);
+    }
+    
+     public static ListNode merge(ListNode h1, ListNode h2){
+
+        if (h1 == null)
+            return h2;
+        if (h2 == null)
+            return h1;
+        if (h1.val < h2.val){
+            h1.next = merge(h1.next, h2);
+            return h1;
+        }else {
+            h2.next = merge(h1, h2.next);
+            return h2;
+        }
+    }
+}
