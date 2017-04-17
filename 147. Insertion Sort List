@@ -1,0 +1,37 @@
+/**************************************************************************************
+ * Sort a linked list using insertion sort.
+ *  
+ * Subscribe to see which companies asked this question.
+ **************************************************************************************/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+         ListNode list = new ListNode(0);
+
+        ListNode index = head;
+        ListNode pre = list;
+        ListNode next = null;
+        while (index != null){
+            pre = list;
+            while( pre.next != null && pre.next.val < index.val ){//找到插入位置
+                pre = pre.next;
+            }
+            next = index.next;
+            //insert between pre and pre.next
+            index.next = pre.next;
+            pre.next = index;
+
+            index = next;
+        }
+
+        return list.next;
+    }
+}
