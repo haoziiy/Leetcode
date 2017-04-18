@@ -9,6 +9,9 @@
  * You are not suppose to use the library's sort function for this problem.
  **************************************************************************************/
  
+/**
+ * 法一
+ */
  public class Solution {
     public void sortColors(int[] nums) {
          int num0 = 0;
@@ -22,5 +25,32 @@
         for(int i = 0; i < num0; ++i) nums[i] = 0;
         for(int i = num0; i < num0 + num1; ++i) nums[i] = 1;
         for(int i = num0 + num1; i < num0 + num1 + num2; ++i) nums[i] = 2;
+    }
+}
+
+
+/**
+ * 法二
+ */
+ public class Solution {
+    public void sortColors(int[] nums) {
+int twoIndex = nums.length - 1;
+        int zeroIndex = 0;
+
+        for (int i = 0; i <= twoIndex; i++) {
+            {
+
+                while (nums[i] == 2 && i < twoIndex) {
+                    nums[i] = nums[twoIndex];
+                    nums[twoIndex] = 2;
+                    twoIndex--;
+                }
+                while (nums[i] == 0 && i > zeroIndex ) {
+                    nums[i] = nums[zeroIndex];
+                    nums[zeroIndex] = 0;
+                    zeroIndex++;
+                }
+            }
+        }
     }
 }
