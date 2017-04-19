@@ -1,0 +1,42 @@
+面试题：替换空格
+题目：请实现一个函数，把字符串中的每个空格替换成“%20”。例如输入“we are happy.”，则输出“we%20are%20happy.”
+
+import java.util.ArrayList;
+import java.util.Arrays;
+/**
+ * Created by sherry on 2017/4/19.
+ */
+public class ReplaceBlank {
+    public static String str = "we are happy.";
+    public static void main(String[] arg){
+        int len = str.length();
+        int count = 0;
+        for (int i = 0;i < len;i++){
+            if (str.charAt(i) == ' '){
+                count++;
+            }
+        }
+        int newLen = len + 2 * count;
+        for (int i = 0; i < newLen - len;i++)
+        {
+            str = str + "@";
+        }  
+        char[] cs = str.toCharArray();
+        int p1 = len - 1;
+        int p2 = newLen - 1;
+        while (p1 < p2 && p1 > 0)
+        {
+            if (cs[p1] == ' ')
+            {
+                cs[p2--] = '0';
+                cs[p2--] = '2';
+                cs[p2--] = '%';
+            }
+            else
+                cs[p2--] = cs[p1];
+            p1--;
+        }
+        str = new String(cs);
+        System.out.println(str);
+    }
+}
