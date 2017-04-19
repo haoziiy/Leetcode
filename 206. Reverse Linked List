@@ -17,6 +17,10 @@
  *     ListNode(int x) { val = x; }
  * }
  */
+ 
+/**
+ * 方法一：递归
+ */
 public class Solution {
     public ListNode reverseList(ListNode head) {
         if(head==null || head.next==null)
@@ -26,5 +30,29 @@ public class Solution {
         nextNodes.next=head;
         head.next=null;
         return newHead;
+    }
+}
+
+/**
+ * 方法二：栈
+ */
+ public class Solution {
+    public ListNode reverseList(ListNode head) {
+        LinkedList<Integer> stack = new LinkedList<>();
+        ListNode p = head;
+        ListNode index = head;
+        ListNode q = new ListNode(0);
+        q.next = head;
+        while (p != null){
+            stack.push(p.val);
+            p = p.next;
+        }
+        while (stack.size() > 0)
+        {
+            index.val = stack.pop();
+            if (stack.size() == 0) break;
+            index = index.next;
+        }
+        return q.next;
     }
 }
