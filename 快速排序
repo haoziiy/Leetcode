@@ -10,29 +10,29 @@ public class quicksort {
         System.out.println(Arrays.toString(array));
     }
 
-    public static int partition(int []array,int lo,int hi){
+    public static int partition(int []array, int low, int high){
         //固定的切分方式
-        int key = array[lo];
-        while(lo < hi){
-            while(array[hi] >= key && hi > lo){//从后半部分向前扫描
-                hi--;
+        int key = array[low];//保存最初节点（方便交换）
+        while(low < high){
+            while(array[high] >= key && high > low){//从后半部分向前扫描
+                high--;
             }
-            array[lo]=array[hi];
-            while(array[lo] <= key && hi > lo){//从前半部分向后扫描
-                lo++;
+            array[low]=array[high];
+            while(array[low] <= key && high > low){//从前半部分向后扫描
+                low++;
             }
-            array[hi] = array[lo];
+            array[high] = array[low];
         }
-        array[hi] = key;
-        return hi;
+        array[high] = key;
+        return high;
     }
 
-    public static void sort(int[] array,int lo ,int hi){
-        if(lo >= hi){
+    public static void sort(int[] array,int low ,int high){
+        if(low >= high){
             return ;
         }
-        int index = partition(array,lo,hi);
-        sort(array, lo, index-1);
-        sort(array,index+1, hi);
+        int index = partition(array, low, high);
+        sort(array, low, index - 1);
+        sort(array,index + 1, high);
     }
 }
