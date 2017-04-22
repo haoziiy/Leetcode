@@ -1,0 +1,72 @@
+ /**************************************************************************************
+ * Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+ *
+ * For example,
+ * Given the following matrix:
+ * 
+ * [
+ *   [ 1, 2, 3 ],
+ *   [ 4, 5, 6 ],
+ *   [ 7, 8, 9 ]
+ * ]
+ * You should return [1,2,3,6,9,8,7,4,5].
+ * 
+ * Subscribe to see which companies asked this question.
+ **************************************************************************************/
+
+
+public class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> list = new ArrayList<>();
+        if (matrix == null  || matrix.length == 0) return list;
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        int start = 0;
+        while (columns > start * 2 && rows > start * 2)
+        {
+            list = PrintMatixCircle(matrix, list, columns, rows, start);
+            start++;
+        }
+        return list;
+    }
+    
+    public static List<Integer> PrintMatixCircle(int[][] matrix, List<Integer> list, int columns, int rows, int start){
+        int endcolumn = columns - 1 - start;
+        int endrow = rows - 1 - start;
+        //从左到右打印一行
+        for (int i = start ;i <= endcolumn;i++)
+        {
+            int num = matrix[start][i];
+            System.out.print(num + " ");
+            list.add(num);
+        }
+
+        if (start < endrow) {
+            //从上到下打印一列
+            for (int i = start + 1; i <= endrow; i++) {
+                int num = matrix[i][endcolumn];
+                System.out.print(num + " ");
+                list.add(num);
+            }
+        }
+
+        if (start < endrow && start < endcolumn) {
+            //从右到左打印一行
+            for (int i = endcolumn - 1; i >= start; i--) {
+                int num = matrix[endrow][i];
+                System.out.print(num + " ");
+                list.add(num);
+            }
+        }
+
+        if (endrow - start >= 2 && endcolumn > start) {
+            //从下到上打印一列
+            for (int i = endrow - 1; i > start; i--) {
+                int num = matrix[i][start];
+                System.out.print(num + " ");
+                list.add(num);
+            }
+        }
+        return list;
+    }
+}
