@@ -30,43 +30,26 @@ public class Solution {
         return list;
     }
     
-    public static List<Integer> PrintMatixCircle(int[][] matrix, List<Integer> list, int columns, int rows, int start){
+   
+    public List<Integer> PrintMatixCircle(int[][] matrix, List<Integer> list, int columns, int rows, int start){
         int endcolumn = columns - 1 - start;
         int endrow = rows - 1 - start;
+        int i = 0;
         //从左到右打印一行
-        for (int i = start ;i <= endcolumn;i++)
-        {
-            int num = matrix[start][i];
-            System.out.print(num + " ");
-            list.add(num);
-        }
-
-        if (start < endrow) {
+        for (i = start ;i <= endcolumn;i++)
+            list.add(matrix[start][i]);
+        if (start < endrow) 
             //从上到下打印一列
-            for (int i = start + 1; i <= endrow; i++) {
-                int num = matrix[i][endcolumn];
-                System.out.print(num + " ");
-                list.add(num);
-            }
-        }
-
-        if (start < endrow && start < endcolumn) {
+            for (i = start + 1; i <= endrow; i++) 
+                list.add(matrix[i][endcolumn]);
+        if (start < endrow && start < endcolumn) 
             //从右到左打印一行
-            for (int i = endcolumn - 1; i >= start; i--) {
-                int num = matrix[endrow][i];
-                System.out.print(num + " ");
-                list.add(num);
-            }
-        }
-
-        if (endrow - start >= 2 && endcolumn > start) {
+            for (i = endcolumn - 1; i >= start; i--) 
+                list.add(matrix[endrow][i]);
+        if (endrow - start >= 2 && endcolumn > start) 
             //从下到上打印一列
-            for (int i = endrow - 1; i > start; i--) {
-                int num = matrix[i][start];
-                System.out.print(num + " ");
-                list.add(num);
-            }
-        }
+            for (i = endrow - 1; i > start; i--) 
+                list.add(matrix[i][start]);
         return list;
     }
 }
