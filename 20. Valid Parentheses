@@ -1,0 +1,63 @@
+
+/**************************************************************************************
+* Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+*
+* The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+**************************************************************************************/
+
+public class Solution {
+    public boolean isValid(String s) {
+        Stack stack = new Stack();
+        boolean isPossible = true;
+        int i = 0;
+        while (isPossible && i < s.length())
+        {
+            switch (s.charAt(i)) {
+                case '{':
+                    stack.push(s.charAt(i));
+                    break;
+                case '[':
+                    stack.push(s.charAt(i));
+                    break;
+                case '(':
+                    stack.push(s.charAt(i));
+                    break;
+                case '}':
+                    if (stack.size() < 1) {
+                        isPossible = false;
+                        break;
+                    }
+                    if ((char)stack.peek() == '{')
+                        stack.pop();
+                    else
+                        stack.push(s.charAt(i));
+                    break;
+                case ']':
+                    if (stack.size() < 1) {
+                        isPossible = false;
+                        break;
+                    }
+                    if ((char)stack.peek() == '[')
+                        stack.pop();
+                    else
+                        stack.push(s.charAt(i));
+                    break;
+                case ')':
+                    if (stack.size() < 1) {
+                        isPossible = false;
+                        break;
+                    }
+                    if ((char)stack.peek() == '(')
+                        stack.pop();
+                    else
+                        stack.push(s.charAt(i));
+                    break;
+            }
+            i++;
+        }
+        if (stack.size() == 0 && isPossible)
+            return true;
+        else
+            return false;
+    }
+}
