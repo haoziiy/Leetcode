@@ -1,0 +1,26 @@
+/**************************************************************************************
+ * Rotate an array of n elements to the right by k steps.
+ * 
+ * For example, with n = 7 and k = 3, the array [1,2,3,4,5,6,7] is rotated to [5,6,7,1,2,3,4].
+ * 
+ * Note:
+ * Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.
+ **************************************************************************************/
+ 
+ public class Solution {
+    public void rotate(int[] nums, int k) {
+        k = (nums.length + (k % nums.length)) % nums.length; // 保证k为正
+        int n = nums.length - 1;
+        reverse(nums, 0, n - k);
+        reverse(nums, n - k + 1, n);
+        reverse(nums, 0, n);
+    }
+    public void reverse(int[] nums, int start, int end) {
+        int len = end - start + 1;
+        for (int i = 0;i < len/2;i++) {
+            int temp = nums[start + i];
+            nums[start + i] = nums[end - i];
+            nums[end - i] = temp;
+        }
+    }
+}
