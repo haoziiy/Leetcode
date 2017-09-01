@@ -1,0 +1,33 @@
+/**************************************************************************************
+ * Given two binary trees, write a function to check if they are equal or not.
+ * 
+ * Two binary trees are considered equal if they are structurally identical and the nodes have the same value.
+ * 
+ * Subscribe to see which companies asked this question.
+ **************************************************************************************/
+ 
+ class Solution {
+    int low = 0;
+    int maxLen = 0;
+    public String longestPalindrome(String s) {
+        int len = s.length();
+        if(len < 2){
+            return s;
+        }
+        for(int i = 0; i < len - 1 ; i++){
+            helpFind(s, i, i); // odd
+            helpFind(s, i, i + 1);// even
+        }
+        return s.substring(low, low + maxLen);
+    }
+    public void helpFind(String s, int j, int k) {
+        while(j >= 0 && k < s.length() && s.charAt(j) == s.charAt(k)){
+            j--;
+            k++;
+        }
+        if (maxLen < k - j - 1) {
+            low = j + 1;
+            maxLen = k - j - 1;
+        }
+    }
+}
