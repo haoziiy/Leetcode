@@ -1,0 +1,119 @@
+/**************************************************************************************
+ * A binary watch has 4 LEDs on the top which represent the hours (0-11), 
+ * and the 6 LEDs on the bottom represent the minutes (0-59).
+ *
+ * Each LED represents a zero or one, with the least significant bit on the right.
+ *
+ * 
+ * For example, the above binary watch reads "3:25".
+ * 
+ * Given a non-negative integer n which represents the number of LEDs that are currently on, return all possible times the watch could represent.
+ *
+ * Example:
+ * 
+ * Input: n = 1
+ * Return: ["1:00", "2:00", "4:00", "8:00", "0:01", "0:02", "0:04", "0:08", "0:16", "0:32"]
+ * Note:
+ * The order of output does not matter.
+ * The hour must not contain a leading zero, for example "01:00" is not valid, it should be "1:00".
+ * The minute must be consist of two digits and may contain a leading zero, for example "10:2" is not valid, 
+ * it should be "10:02".
+ **************************************************************************************/
+
+
+/* 方案一：虽然list内部顺序和标准答案不一致交不上哈哈哈哈哈哈哈，也是个思路 */
+class Solution {
+     final static String hours[][] = {
+            {"0"},
+            {"1", "2", "4", "8"},
+            {"3", "5", "6", "9", "10"},
+            {"7", "11"}
+    };
+
+    final static String minute[][] = {
+            {"00"},
+            {"01", "02", "04", "08", "16", "32"},
+            {"03", "05", "06", "09", "10", "12", "17", "18", "20", "24", "33", "34", "36", "40", "48"},
+            {"07", "11", "13", "14", "15", "19", "21", "22", "26", "28", "35", "37", "38", "41", "42", "44","49", "50", "52", "56"},
+            {"15", "23", "27", "29", "30", "39", "43", "45", "46", "51", "53", "54", "57", "58"},
+            {"31", "47", "55", "59"}
+    };
+
+    public List<String> readBinaryWatch(int num) {
+        List<String> list = new ArrayList<>();
+
+        for (int i = 0; i < 4 && i <= num; i++) {
+           if (num - i <= 5) {
+               for (String hour : hours[i]) {
+                   for (String minute : minute[num - i]) {
+                       list.add(hour + ":" + minute);
+                   }
+               }
+           }
+        }
+        return list;
+    }
+}
+
+/* 方案二：暴力穷举 */
+class Solution {
+    public List<String> readBinaryWatch(int num) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            for (int j = 0; j < 60; j++) {
+                if (Integer.bitCount(i) + Integer.bitCount(j) == num) {
+                    list.add(String.format("%d:%02d", i, j));
+                }
+            }
+        }
+        return list;
+    }
+}
+
+/* 方案三：造出方案一的两部分字符串，针对二进制特性用了位运算，肯定是优于方案二的。
+ *
+ * combine()函数参数意义如下
+ * num：几位灯亮
+ * lst：保存特定位数灯表示的数字（几点／几分）
+ * cond：最大灯位
+ * idx：定位索引灯位
+ * max：最大表示数值
+ */
+class Solution {
+    public List<String> readBinaryWatch(int num) {
+        List<String> ans = new ArrayList<>();
+        for (int i = 0; i <= num; i++) {
+            int left = num - i;
+            List<Integer> hours = new ArrayList<>();
+            combine(i, hours, 0, 3, 0, 11);
+            List<Integer> mins = new ArrayList<>();
+            combine(left, mins, 0, 5, 0, 59);
+            for (int hour : hours) {
+                for (int min : mins) {
+                    String minStr = "";
+                    if (min < 10) {
+                        minStr = "0" + min;
+                    } else {
+                        minStr = String.valueOf(min);
+                    }
+                    ans.add(hour + ":" + minStr);
+                }
+            }
+        }
+        return ans;
+    }
+    private void combine(int num, List<Integer> lst, int val, int cond, int idx, int max) {
+        if (num == 0) {//已经亮满指定灯数
+            lst.add(val);//记录下此刻表示数值
+            return;
+        }
+        for (int i = idx; i <= cond; i++) {
+            if (val + (1 << i) > max) {
+                break;
+            }
+            val += (1 << i);//假设当前灯位左位灯也亮
+            combine(num - 1, lst, val, max, i + 1, max);//还剩num - 1个灯位可以亮
+            val -= (1 << i);//消除假设影响
+        }
+    }
+}
